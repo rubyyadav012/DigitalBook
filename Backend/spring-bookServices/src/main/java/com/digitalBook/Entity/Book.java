@@ -1,19 +1,26 @@
-package com.BookService.Entity;
+package com.digitalBook.Entity;
 import javax.persistence.GeneratedValue;
+
+import java.util.Date;
+
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Data
+@NoArgsConstructor
 
 @Entity
 public class Book {
@@ -21,6 +28,8 @@ public class Book {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
+	
+	
 	private String image;
 	
 
@@ -29,19 +38,30 @@ public class Book {
 	
 	private String catagory;
 	
-
+    //@NotNull(message="it must be some value")
 	private Long price;
-	private String publisher;
-	private String publisher_Date;
+    
+    //@NotBlank(message="Publisher name must be mentioned")
+    //@Column(nullable=false)
+    private String publisher;
+    
+    
+   //@NotBlank(message="please mention publisher date")
+	private Date publisher_Date;
+    
+    
+    //@NotBlank(message="contents must be mention")
 	private String contents;
-	private boolean status;
+    
+    
+	private char status;
 	
+	/*@Column(nullable=false)
+	private int author_id;*/
 	
-
 	@OneToOne(cascade=CascadeType.ALL)
-	@NotBlank(message="Author name must be mentioned")
 	private Author author;
-
+	
 	
     @Override
 	public String toString() {
@@ -54,8 +74,8 @@ public class Book {
 		return id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setId(int book) {
+		this.id = book;
 	}
 
 	public String getImage() {
@@ -98,12 +118,12 @@ public class Book {
 		this.publisher = publisher;
 	}
 
-	public String getPublisher_Date() {
+	public Date getPublisher_Date() {
 		return publisher_Date;
 	}
 
-	public void setPublisher_Date(String publisher_Date) {
-		this.publisher_Date = publisher_Date;
+	public void setPublisher_Date(Date date) {
+		this.publisher_Date = date;
 	}
 
 	public String getContents() {
@@ -114,21 +134,20 @@ public class Book {
 		this.contents = contents;
 	}
 
-	public boolean isStatus() {
+	public char isStatus() {
 		return status;
 	}
 
-	public void setStatus(boolean status) {
-		this.status = status;
-	}
 
-	public Author getAuthor() {
-		return author;
+	public char getStatus() {
+		return status;
 	}
 
 	public void setAuthor(Author author) {
 		this.author = author;
 	}
+
+	
 
 }
 

@@ -7,22 +7,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.digitalBook.entity.Author;
+import com.digitalBook.entity.User;
 import com.digitalBook.exception.ResourceNotFoundException;
-import com.digitalBook.repository.AuthorRepo;
+import com.digitalBook.repository.UserRepo;
 
 
 	@Service
-	public class AuthorService {
+	public class UserService {
 	    @Autowired
-	    AuthorRepo authorRepo;
+	    UserRepo authorRepo;
 
-	    public List<Author> getAuthors() {
+	    public List<User> getAuthors() {
 	        return authorRepo.findAll();
 	    }
 
 
-	    public Optional<Author> getAuthorById(Integer authorId) {
+	    public Optional<User> getAuthorById(Integer authorId) {
 	        if (!authorRepo.existsById(authorId)) {
 	            throw new ResourceNotFoundException("Author with id " + authorId + " not found");
 	        }
@@ -30,22 +30,22 @@ import com.digitalBook.repository.AuthorRepo;
 	    }
 
 
-	    public Author createAuthor(Author author) {
+	    public User createAuthor(User author) {
 	        return authorRepo.save(author);
 
 	    }
 
-	    public Author updateAuthorById(Integer authorId, Author authorRequest) {
+	    public User updateAuthorById(Integer authorId, User authorRequest) {
 	        if (!authorRepo.existsById(authorId)) {
 	            throw new ResourceNotFoundException("Author with id " + authorId + " not found");
 	        }
-	        Optional<Author> author = authorRepo.findById(authorId);
+	        Optional<User> author = authorRepo.findById(authorId);
 
 	        if (!author.isPresent()) {
 	            throw new ResourceNotFoundException("Author with id " + authorId + " not found");
 	        }
 
-	        Author author1 = author.get();
+	        User author1 = author.get();
 	       // author1.setFirstName(authorRequest.getFirstName());
 	       // author1.setLastName(authorRequest.getLastName());
 	        return authorRepo.save(author1);
@@ -62,6 +62,12 @@ import com.digitalBook.repository.AuthorRepo;
 	        return ResponseEntity.ok().build();
 
 	    }
+
+
+		public boolean existsByusername(Object username) {
+			// TODO Auto-generated method stub
+			return false;
+		}
 
 
 	}

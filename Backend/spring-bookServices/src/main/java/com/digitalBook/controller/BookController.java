@@ -1,5 +1,5 @@
 package com.digitalBook.controller;
-import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ import com.digitalBook.bookService.BookService;
 import com.digitalBook.entity.Book;
 import com.digitalBook.exception.ResourceNotFoundException;
 import com.digitalBook.repository.BookRepository;
-import com.digitalBook.repository.ReaderRepo;
+
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -34,40 +34,34 @@ public class BookController {
 	@Autowired
 	BookService bookService;
 
-	@Autowired
-	BookRepository bookRepository;
+//	@Autowired
+//	BookRepository bookRepository;
 
-	@Autowired
-	ReaderRepo readerRepo;
 
 	@PostMapping("author/{authorId}/books")
 	public ResponseEntity<?> createBook(@Valid @PathVariable("authorId") Integer id, @RequestBody Book book) {
-		if(!readerRepo.existsById(id)) {
-			return new ResponseEntity<>("Author does not exist", HttpStatus.UNAUTHORIZED);
-		}
-		//book.setReaderid(id);
-		Book createdBook = bookRepository.save(book);
+
+		Book createdBook = bookService.createBook(id,book);
 
 		return new ResponseEntity<>(createdBook,HttpStatus.CREATED);
 	}
 
 	@PutMapping("author/{authorId}/books")
-	@ResponseStatus(code = HttpStatus.OK)
-	public ResponseEntity<?> updateBook(@PathVariable("authorId") int authorId, @PathVariable("authorId") Integer bookId,
+	public ResponseEntity<?> updateBook(@Valid@PathVariable("authorId") int authorId, @PathVariable("authorId") Integer bookId,
 			@RequestBody Book book) throws ResourceNotFoundException {
 
-		if (!readerRepo.existsById((Integer) authorId)) {
-			return new ResponseEntity<>("Author does not exist",HttpStatus.UNAUTHORIZED);
-		}
-		Book updateBook = bookService.updateBook(bookId,book);
-		if (updateBook == null) {
+		
+		Book updatedBook = bookService.updateBook(bookId,book);
+		/*if (updateBook == null) {
 			return new ResponseEntity<>("Book does not exist", HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<>(updateBook, HttpStatus.FOUND);
+		return new ResponseEntity<>(updateBook, HttpStatus.FOUND);*/
+		
+		return new ResponseEntity<>(updatedBook,HttpStatus.FOUND);
 
 	}
 
-	@GetMapping("/books/search")
+	/*@GetMapping("/books/search")
 	@ResponseBody
 	public ResponseEntity<?> searchBook(@RequestParam(required = false) String category,
 			@RequestParam(required = false) String author, @RequestParam(required = false) String price,
@@ -80,6 +74,6 @@ public class BookController {
 		}
 		return new ResponseEntity<>("No Books Found", HttpStatus.NOT_FOUND);
 
-	}
+	}*/
 
 }

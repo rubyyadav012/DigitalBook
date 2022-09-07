@@ -1,6 +1,5 @@
 package com.digitalBook.controller;
 
-public class ReaderController {
-	
+public class UserController {
 
 }

@@ -4,24 +4,15 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.digitalBook.entity.Author;
+import com.digitalBook.entity.User;
 import com.digitalBook.entity.Book;
 import com.digitalBook.exception.ResourceNotFoundException;
-import com.digitalBook.repository.AuthorRepo;
+import com.digitalBook.repository.UserRepo;
 import com.digitalBook.repository.BookRepository;
-
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-
-
 
 @Service
 public class BookService {
@@ -32,7 +23,7 @@ public class BookService {
     BookRepository bookRepo;
 
     @Autowired
-    AuthorRepo authorRepo;
+    UserRepo userRepo;
 
     public List<Book> getAllBooks() {
         return bookRepo.findAll();
@@ -47,27 +38,22 @@ public class BookService {
     }
 
 
-    public Book createBook(Integer authorId, Book book) {
+    public Book createBook(Integer userId, Book book) {
         Set<Book> books = new HashSet<>();
-        Author author1 = new Author();
-
-        Optional<Author> byId = authorRepo.findById(authorId);
-        if (!byId.isPresent()) {
-            throw new ResourceNotFoundException("Author with id " + authorId + " does not exist");
-        }
-        Author author = byId.get();
-
-        //tie Author to Book
-        //book.setAuthor(author);
+        User user1 = new User();
         
-        Book book1 = bookRepo.save(book);
+        	 Optional<User> byId = userRepo.findById(userId);
+        	 if (!byId.isPresent()) {
+                 throw new ResourceNotFoundException("Author with id " + userId + " does not exist");
+             }
         
-        //tie Book to Author
-        books.add(book1);
-        //author1.setBooks(books);
+        Book response= bookRepo.save(book);
+      
+        
+ 
+		return  response;
 
-        return book1;
-
+       
     }
 
     public Book updateBook(Integer bookId, Book bookRequest) {
@@ -82,15 +68,14 @@ public class BookService {
 
         Book book1 = book.get();
      
-        /*book1.setTitle(bookRequest.getTitle());
+        book1.setTitle(bookRequest.getTitle());
         book1.setImage(bookRequest.getImage());
-        
         book1.setCategory(bookRequest.getCategory());
         book1.setPrice(bookRequest.getPrice());
         book1.setPublisher(bookRequest.getPublisher());
-        book1.setPublisher_Date(bookRequest.getPublisher_Date());
+        book1.setPublisherDate(bookRequest.getPublisherDate());
         book1.setContents(bookRequest.getContents());
-        book1.setStatus(bookRequest.getStatus());*/
+        book1.setStatus(bookRequest.isStatus());
         
 
         return bookRepo.save(book1);
@@ -106,6 +91,9 @@ public class BookService {
         return ResponseEntity.ok().build();
 
     }
+
+
+	
 }
 
 

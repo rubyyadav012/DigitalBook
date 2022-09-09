@@ -1,5 +1,6 @@
 package com.digitalBook.bookService;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +29,30 @@ public class BookService {
     public List<Book> getAllBooks() {
         return bookRepo.findAll();
     }
+    
+    /*public Set<Book> searchBook(String category, String author, BigDecimal price, String publisher) {
+		Set<Book> bookList = new HashSet<>();;
+		
+		if (category != null) {
+			bookList.addAll(bookRepo.searchBookByCategory(category));
+		}
+		if (author != null) {
+			bookList.addAll(bookRepo.searchBookByAuthor(author));
+
+		}
+		if (price != null) {
+			bookList.addAll(bookRepo.searchBookByPrice(price));
+		}
+		if (publisher != null) {
+			bookList.addAll(bookRepo.searchBookByPublisher(publisher));
+
+		}
+		return bookList;
+		
+		
+	}*/
+    
+
 
 
     public Optional<Book> getBookById(Integer bookId) {
@@ -36,6 +61,7 @@ public class BookService {
         }
         return bookRepo.findById(bookId);
     }
+    
 
 
     public Book createBook(Integer userId, Book book) {
@@ -91,6 +117,11 @@ public class BookService {
         return ResponseEntity.ok().build();
 
     }
+
+	/*public Optional<Book> getById(Integer bookId) {
+		// TODO Auto-generated method stub
+		return bookRepo.findById(bookId);
+	}*/
 
 
 	

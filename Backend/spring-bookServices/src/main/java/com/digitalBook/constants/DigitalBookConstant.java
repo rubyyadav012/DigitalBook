@@ -1,4 +1,4 @@
-package com.digitalBook.Constants;
+package com.digitalBook.constants;
 
 public class DigitalBookConstant {
 

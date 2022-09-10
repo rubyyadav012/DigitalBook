@@ -2,9 +2,6 @@ package com.digitalBook.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-
-import org.springframework.data.repository.query.Param;
-
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +13,7 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 
-//@NamedQuery(name="User.findByEmail(@Param(\"email\") String email);", query = "select U from User U where U.email=:email")
+
 @Entity
 @Table(name = "user")
 public class User implements Serializable {
@@ -34,7 +31,7 @@ public class User implements Serializable {
 	@NotBlank(message = "Password must not be empty")
 	private String password;
 	
-	//@Email
+	
 	@NotBlank(message = "Email must be mentioned")
 	private String email;
 	

@@ -38,7 +38,7 @@ class BookControllerTest {
 		book.setContents("just for fun");
 		book.setPrice(new BigDecimal(500));
 		book.setPublisher("the moon");
-		book.setPublisherDate(new Date(9/8/2022));
+		//book.setPublisherDate(new Date(9/8/2022));
 		book.setStatus(true);
 		
 		
@@ -68,11 +68,10 @@ class BookControllerTest {
 		book.setStatus(true);
 		
 		
-	//ResponseEntity response=new ResponseEntity<>(book,HttpStatus.CREATED);
+	
 		
 		when(bookService.updateBook(1,book)).thenReturn(book);
 		System.out.println(bookController.updateBook(1,book.getId(),book).getBody());
-		//assertEquals(1, bookController.updateBook(1,book.getId(),book));
 		assertTrue(bookController.updateBook(1,book.getId(),book).getBody() instanceof Book);
 		
 	}

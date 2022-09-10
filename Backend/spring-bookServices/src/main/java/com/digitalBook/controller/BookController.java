@@ -24,7 +24,7 @@ import com.digitalBook.repository.BookRepository;
 @CrossOrigin
 @RestController
 @RequestMapping("/digitalbooks/")
-public class BookController {
+public class BookController extends BaseController{
 
 	@Autowired
 	BookService bookService;

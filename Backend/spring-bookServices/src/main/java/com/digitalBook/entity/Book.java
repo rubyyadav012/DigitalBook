@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
+
 import org.hibernate.annotations.ColumnDefault;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,7 +25,10 @@ public class Book {
 	private Integer Id;
 	
 	private String image;
+	
+	@NotBlank(message="title can't be blank")
 	private String title;
+	
 	private Catagory category;
 	private BigDecimal price;
 	

@@ -1,13 +1,10 @@
 package com.digitalBook.bookService;
-
-import java.util.Map;
-
 import org.springframework.http.ResponseEntity;
+import com.digitalBook.entity.User1;
+
 
 public interface UserService {
 
-	public ResponseEntity<String> signUp(Map<String, String> requestMap);
-
-	public ResponseEntity<String> login(Map<String, String> requestMap);
+	public ResponseEntity<String> signUp(User1 requestMap);
 
 }

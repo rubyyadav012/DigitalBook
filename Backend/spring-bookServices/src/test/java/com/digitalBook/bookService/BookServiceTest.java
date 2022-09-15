@@ -28,7 +28,7 @@ class BookServiceTest {
 	void testgetBook() {
 		Book book=new Book();
 		book.setId(1);
-		book.setCategory(Catagory.JAVA);
+		book.setCatagory(Catagory.JAVA);
 		book.setAuthor("ruby");
 		book.setImage(" ");
 		book.setContents("just for fun");
@@ -47,7 +47,7 @@ class BookServiceTest {
 	void testgetBookById() {
 		Book book=new Book();
 		book.setId(1);
-		book.setCategory(Catagory.JAVA);
+		book.setCatagory(Catagory.JAVA);
 		book.setAuthor("ruby");
 		book.setImage(" ");
 		book.setContents("just for fun");
@@ -64,5 +64,37 @@ class BookServiceTest {
 		assertEquals(1, bookService.getAllBooks().size());
 	}
 
-	
+	@Test
+	void testUpdateBook() {
+
+		Book book = new Book();
+
+		book.setId(1);
+		book.setCatagory(Catagory.JAVA);
+		book.setAuthor("ruby");
+		book.setImage(" ");
+		book.setContents("just for fun");
+		book.setPrice(new BigDecimal(500));
+		book.setPublisher("the moon");
+		book.setPublisherDate(new Date(9 / 8 / 2022));
+		book.setStatus(true);
+
+		Book updatedBook = new Book();
+
+		updatedBook.setId(1);
+		updatedBook.setCatagory(Catagory.JAVA);
+		updatedBook.setAuthor("ruby");
+		updatedBook.setImage(" ");
+		updatedBook.setContents("just for fun");
+		updatedBook.setPrice(new BigDecimal(500));
+		updatedBook.setPublisher("the moon");
+		updatedBook.setPublisherDate(new Date(9 / 8 / 2022));
+		updatedBook.setStatus(true);
+
+		when(bookService.updateBook(1, book)).thenReturn(updatedBook);
+		assertEquals(bookService.updateBook(1, book).getContents(), updatedBook.getContents());
+		assertEquals(bookService.updateBook(1, book).getPrice(), updatedBook.getPrice());
+		assertEquals(bookService.updateBook(1, book), updatedBook);
+
+	}
 }

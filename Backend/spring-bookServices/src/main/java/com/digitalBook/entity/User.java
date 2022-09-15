@@ -1,4 +1,4 @@
-package com.digitalBook.entity;
+/*package com.digitalBook.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -37,11 +37,11 @@ public class User implements Serializable {
 	
 	private boolean loggedIn;
 	
-	@NotBlank(message = "Role must be either Reader/Author")
+	//@NotBlank(message = "Role must be either Reader/Author")
 	@Column(name="role")
 	private String userrole;
 	
 	private boolean status;
 
 	
-}
+}*/

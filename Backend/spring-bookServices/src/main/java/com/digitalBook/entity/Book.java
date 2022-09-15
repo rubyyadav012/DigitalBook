@@ -6,8 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
-
-import org.hibernate.annotations.ColumnDefault;
+import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -26,19 +25,24 @@ public class Book {
 	
 	private String image;
 	
-	@NotBlank(message="title can't be blank")
+	//@NotBlank(message="title can't be blank")
 	private String title;
 	
-	private Catagory category;
+    //@NotBlank(message="catagory must be mentioned ")
+	private Catagory catagory;
+	
+	@NotNull(message="price can not be null")
 	private BigDecimal price;
 	
+	//@NotBlank(message="please mentioned publisher name")
 	private String publisher;
+	
 	
 	private Date publisherDate;
 	
+	@NotBlank(message="please address contents")
 	private String contents;
-	
-	@ColumnDefault("0")
+
 	private boolean status;
 	
 	

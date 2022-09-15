@@ -1,15 +1,12 @@
 package com.digitalBook.bookService;
-
-import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.digitalBook.entity.User;
+import com.digitalBook.entity.User1;
 import com.digitalBook.entity.Book;
 import com.digitalBook.exception.ResourceNotFoundException;
 import com.digitalBook.repository.UserRepo;
@@ -30,29 +27,7 @@ public class BookService {
         return bookRepo.findAll();
     }
     
-    /*public Set<Book> searchBook(String category, String author, BigDecimal price, String publisher) {
-		Set<Book> bookList = new HashSet<>();;
-		
-		if (category != null) {
-			bookList.addAll(bookRepo.searchBookByCategory(category));
-		}
-		if (author != null) {
-			bookList.addAll(bookRepo.searchBookByAuthor(author));
-
-		}
-		if (price != null) {
-			bookList.addAll(bookRepo.searchBookByPrice(price));
-		}
-		if (publisher != null) {
-			bookList.addAll(bookRepo.searchBookByPublisher(publisher));
-
-		}
-		return bookList;
-		
-		
-	}*/
     
-
 
 
     public Optional<Book> getBookById(Integer bookId) {
@@ -65,13 +40,13 @@ public class BookService {
 
 
     public Book createBook(Integer userId, Book book) {
-        Set<Book> books = new HashSet<>();
-        User user1 = new User();
+        ///Set<Book> books = new HashSet<>();
+        //User user1 = new User();
         
-        	 Optional<User> byId = userRepo.findById(userId);
+        	/* Optional<User> byId = userRepo.findById(userId);
         	 if (!byId.isPresent()) {
                  throw new ResourceNotFoundException("Author with id " + userId + " does not exist");
-             }
+             }*/
         
         Book response= bookRepo.save(book);
       
@@ -96,7 +71,7 @@ public class BookService {
      
         book1.setTitle(bookRequest.getTitle());
         book1.setImage(bookRequest.getImage());
-        book1.setCategory(bookRequest.getCategory());
+        book1.setCatagory(bookRequest.getCatagory());
         book1.setPrice(bookRequest.getPrice());
         book1.setPublisher(bookRequest.getPublisher());
         book1.setPublisherDate(bookRequest.getPublisherDate());
@@ -117,13 +92,6 @@ public class BookService {
         return ResponseEntity.ok().build();
 
     }
-
-	/*public Optional<Book> getById(Integer bookId) {
-		// TODO Auto-generated method stub
-		return bookRepo.findById(bookId);
-	}*/
-
-
 	
 }
 

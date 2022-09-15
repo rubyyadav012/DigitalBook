@@ -1,21 +1,31 @@
 package com.digitalBook.controller;
-
-import org.springframework.http.HttpStatus;
+import java.util.HashMap;
+import java.util.Map;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
+
 
 public class BaseController {
 
 		public BaseController() {
 			super();
 		}
+		 @ExceptionHandler(MethodArgumentNotValidException.class)
+	       public Map<String, String> handleException(MethodArgumentNotValidException ex) {
+           Map<String, String> error = new HashMap<String, String>();
+                   ex.getBindingResult().getAllErrors().forEach(e -> {
+                	   String fieldName = ((FieldError) e).getField();
 
-		@ResponseStatus(code = HttpStatus.EXPECTATION_FAILED)
-		@ExceptionHandler(Exception.class)
-		String handleAllException(Exception ex) {
-		     return ex.getMessage();
-		}
+	                      String message = ((FieldError) e).getDefaultMessage();
+
+	                      error.put(fieldName, message);
+
+	             });
+
+	              return error;
+
+	       }
 
 	}
-
 

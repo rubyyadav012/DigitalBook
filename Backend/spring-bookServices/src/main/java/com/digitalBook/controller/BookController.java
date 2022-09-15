@@ -18,13 +18,11 @@ import com.digitalBook.entity.Book;
 import com.digitalBook.exception.ResourceNotFoundException;
 import com.digitalBook.repository.BookRepository;
 
-//import lombok.extern.slf4j.Slf4j;
 
-//@Slf4j
 @CrossOrigin
 @RestController
 @RequestMapping("/digitalbooks/")
-public class BookController extends BaseController{
+public class BookController extends BaseController {
 
 	@Autowired
 	BookService bookService;

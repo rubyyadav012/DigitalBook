@@ -20,11 +20,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.digitalBook.repository.RoleRepository;
 import com.digitalBook.repository.UserRepo;
+import com.digitalBook.repository.UserRoleRepo;
 import com.digitalBook.security.jwt.JwtUtils;
 import com.digitalBook.security.services.*;
 import com.digitalBook.entity.ERole;
 import com.digitalBook.entity.Role;
 import com.digitalBook.entity.User1;
+import com.digitalBook.entity.UserRole;
 import com.digitalBook.payload.request.LoginRequest;
 import com.digitalBook.payload.request.SignupRequest;
 import com.digitalBook.payload.response.JwtResponse;
@@ -41,6 +43,9 @@ public class AuthController {
 
 	@Autowired
 	UserRepo userRepository;
+	
+	@Autowired
+	UserRoleRepo userRoleRepo;
 
 	@Autowired
 	RoleRepository roleRepository;
@@ -81,14 +86,20 @@ public class AuthController {
 
 			User1 user = new User1(signUpRequest.getUsername(), 
 								 signUpRequest.getEmail(),
-								 encoder.encode(signUpRequest.getPassword()));
-
-			Set<String> strRoles = signUpRequest.getRole();
-			Set<Role> roles = new HashSet<>();
-
+								 encoder.encode(signUpRequest.getPassword()),signUpRequest.getRole());
 			
-				strRoles.forEach(role -> {
-					switch (role) {
+			UserRole userRole=new UserRole();
+
+			Set<String> strRoles = signUpRequest.getRoles();
+			Set<Role> roles = new HashSet<>();
+                 for(Role role:roles) {
+                	 userRole.setRole_id(role.getId());
+                 }
+			
+				/*strRoles.forEach(role -> {
+				
+			   switch (role) {
+					
 					case "admin":
 						Role adminRole = roleRepository.findByName(ERole.ROLE_AUTHOR)
 								.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
@@ -101,13 +112,18 @@ public class AuthController {
 						roles.add(modRole);
 
 					break;
-					}});
-				
-			
+					}});*/
 			
 
 			user.setRoles(roles);
+			System.out.println("userRole"+user.getRole());
 			userRepository.save(user);
+		
+			userRole.setUser_id(user.getId());
+			
+			
+			//userRoleRepo.save(userRole);
+			
 
 			return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
 		}

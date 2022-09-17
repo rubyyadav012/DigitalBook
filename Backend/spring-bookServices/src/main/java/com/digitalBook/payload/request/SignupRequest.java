@@ -3,7 +3,9 @@ package com.digitalBook.payload.request;
 import java.util.Set;
 
 import javax.validation.constraints.*;
+
 import com.digitalBook.entity.ERole;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -26,11 +28,13 @@ public class SignupRequest {
     @Email
     private String email;
     
-    private Set<String> role;
+    private Set<String> roles;
     
     @NotBlank
     @Size(min = 6, max = 40)
     private String password;
+    
+    private ERole role;
   
  
 }

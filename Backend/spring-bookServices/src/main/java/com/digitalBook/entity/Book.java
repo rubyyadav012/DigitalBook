@@ -25,16 +25,15 @@ public class Book {
 	
 	private String image;
 	
-	//@NotBlank(message="title can't be blank")
+	@NotBlank(message="title can't be blank")
 	private String title;
 	
-    //@NotBlank(message="catagory must be mentioned ")
 	private Catagory catagory;
 	
 	@NotNull(message="price can not be null")
 	private BigDecimal price;
 	
-	//@NotBlank(message="please mentioned publisher name")
+	@NotBlank(message="please mentioned publisher name")
 	private String publisher;
 	
 	
@@ -45,7 +44,7 @@ public class Book {
 
 	private boolean status;
 	
-	
+	@NotBlank(message="please mentioned author")
 	private String author;
 	
 }

@@ -10,6 +10,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -49,21 +51,27 @@ import lombok.Setter;
 	@NotBlank
 	@Size(max = 120)
 	private String password;
+	
 
+	//@ManyToMany(fetch = FetchType.LAZY)
+	//@JoinTable(	name = "user_roles", 
+				//joinColumns = @JoinColumn(name = "user_id"), 
 	
-	
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(	name = "user_roles", 
-				joinColumns = @JoinColumn(name = "user_id"), 
-				inverseJoinColumns = @JoinColumn(name = "role_id"))
+	//inverseJoinColumns = @JoinColumn(name = "role_id"))
+	@JsonIgnore
+	@Transient
 	private Set<Role> roles = new HashSet<>();
+	
+	
+	private ERole role;
 
 	 
 	
-public User1(String username, String email, String password) {
+public User1(String username, String email, String password,ERole role) {
 	this.username = username;
 	this.email = email;
 	this.password = password;
+	this.role=role;
 }
 }
 

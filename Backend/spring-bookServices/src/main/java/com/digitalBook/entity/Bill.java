@@ -25,9 +25,7 @@ public class Bill implements Serializable {
 	@ManyToOne(targetEntity=Book.class,cascade=CascadeType.MERGE)
 	@JoinColumn(name="book_id",referencedColumnName="id")
 	private Book book;
-	
-	//@Column(name="billId")
-	//private String paymentId;
+
 	
 	@Column(name="name")
 	private String name;
@@ -43,8 +41,12 @@ public class Bill implements Serializable {
 	@Column(name="totalAmount")
 	private Integer totalAmount;
 	
-	//@Column(name="paymentDate")
-	//private Date paymentDate;
+	@Column(name="paymentDate")
+	private Date paymentDate;
+	
+	//@Column(name="bill_id")
+	//private int billId;
+	
 
 	@Transient
 	private boolean refund;

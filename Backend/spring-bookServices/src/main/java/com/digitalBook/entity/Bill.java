@@ -51,4 +51,7 @@ public class Bill implements Serializable {
 	@Transient
 	private boolean refund;
 	
+	@Column(name="cardNo")
+	private String cardNo;
+	
 }

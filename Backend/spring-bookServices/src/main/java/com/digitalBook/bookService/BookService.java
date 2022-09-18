@@ -1,12 +1,9 @@
 package com.digitalBook.bookService;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import com.digitalBook.entity.User1;
 import com.digitalBook.entity.Book;
 import com.digitalBook.exception.ResourceNotFoundException;
 import com.digitalBook.repository.UserRepo;
@@ -28,8 +25,6 @@ public class BookService {
     }
     
     
-
-
     public Optional<Book> getBookById(Integer bookId) throws ResourceNotFoundException {
         if (!bookRepo.existsById(bookId)) {
             throw new ResourceNotFoundException();
@@ -40,21 +35,8 @@ public class BookService {
 
 
     public Book createBook(Integer userId, Book book) {
-        ///Set<Book> books = new HashSet<>();
-        //User user1 = new User();
-        
-        	/* Optional<User> byId = userRepo.findById(userId);
-        	 if (!byId.isPresent()) {
-                 throw new ResourceNotFoundException("Author with id " + userId + " does not exist");
-             }*/
-        
         Book response= bookRepo.save(book);
-      
-        
- 
-		return  response;
-
-       
+		return  response;     
     }
 
     public Book updateBook(Integer bookId, Book bookRequest) throws ResourceNotFoundException {

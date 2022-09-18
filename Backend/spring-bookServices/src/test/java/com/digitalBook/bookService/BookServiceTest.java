@@ -92,10 +92,29 @@ class BookServiceTest {
 		updatedBook.setPublisherDate(new Date(9 / 8 / 2022));
 		updatedBook.setStatus(true);
 
-		when(bookService.updateBook(1, book)).thenReturn(updatedBook);
+		/*when(bookService.updateBook(1, book)).thenReturn(updatedBook);
 		assertEquals(bookService.updateBook(1, book).getContents(), updatedBook.getContents());
 		assertEquals(bookService.updateBook(1, book).getPrice(), updatedBook.getPrice());
 		assertEquals(bookService.updateBook(1, book), updatedBook);
+		}*/
+	
+	/*@Test
+	void testCreateBook() throws ResourceNotFoundException {
 
-	}
+		Book book = new Book();
+
+		book.setId(1);
+		book.setCatagory(Catagory.JAVA);
+		book.setAuthor("ruby");
+		book.setImage(" ");
+		book.setContents("just for fun");
+		book.setPrice(new BigDecimal(500));
+		book.setPublisher("the moon");
+		book.setPublisherDate(new Date(9 / 8 / 2022));
+		book.setStatus(true);
+		when(((BookService) bookRepository).createBook(1, book)).thenReturn(book);
+
+		assertEquals(book, ((BookService) bookRepository).createBook(1, book));
+		}*/
+}
 }

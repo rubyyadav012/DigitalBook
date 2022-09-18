@@ -22,16 +22,9 @@ public class BillServiceImpl implements BillService {
 	@Autowired
 	BillRepo billRepo;
 	
-	public ResponseEntity<String> payment(Bill bill) {
-	log.info("Inside generateReport()");
-	try {
-		billRepo.save(bill);
+	public Bill payment(Bill bill) {
 			
-	}catch(Exception ex){
-	ex.getStackTrace();
-	
-	}
-	return DigitalBooksUtils.getResponseEntity(DigitalBookConstant.SUCCESSFULLY_PAYMENT,HttpStatus.ACCEPTED);
+	 return billRepo.save(bill);
 	
 }
 

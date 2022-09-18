@@ -18,7 +18,7 @@ public interface BillController {
 
 	
 	@PostMapping(path="/payment")
-	ResponseEntity<String> payment(@RequestBody Bill bill);
+	ResponseEntity<?> payment(@RequestBody Bill bill);
 	
 	@GetMapping(path="/getPaymentDetail/{billId}")
 	Optional<Bill>  getById(@PathVariable int billId);

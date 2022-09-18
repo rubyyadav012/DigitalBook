@@ -20,13 +20,13 @@ public class BillControllerImpl implements BillController {
 	BillService billService;
 
 	@Override
-	public ResponseEntity<String> payment(Bill bill) {
+	public ResponseEntity<?> payment(Bill bill) {
 		try {
-			return billService.payment(bill);
+			bill= billService.payment(bill);
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}
-		return DigitalBooksUtils.getResponseEntity(DigitalBookConstant.SOMETHING_WENT_WRONG,HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<>(bill,HttpStatus.CREATED);
 	}
 
 	

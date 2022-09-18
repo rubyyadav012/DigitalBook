@@ -8,6 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.digitalBook.entity.ERole;
 import com.digitalBook.entity.User1;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -22,16 +23,20 @@ public class UserDetailsImpl implements UserDetails {
 
 	@JsonIgnore
 	private String password;
+	
+	private ERole role;
+	
 
 	private Collection<? extends GrantedAuthority> authorities;
 
 	public UserDetailsImpl(Long id, String username, String email, String password,
-			Collection<? extends GrantedAuthority> authorities) {
+			Collection<? extends GrantedAuthority> authorities,ERole role) {
 		this.id = id;
 		this.username = username;
 		this.email = email;
 		this.password = password;
 		this.authorities = authorities;
+		this.role = role;
 	}
 
 	public static UserDetailsImpl build(User1 user) {
@@ -44,7 +49,7 @@ public class UserDetailsImpl implements UserDetails {
 				user.getUsername(), 
 				user.getEmail(),
 				user.getPassword(), 
-				authorities);
+				authorities,user.getRole());
 	}
 
 	@Override
@@ -60,6 +65,10 @@ public class UserDetailsImpl implements UserDetails {
 		return email;
 	}
 
+	public ERole getRole() {
+		return role;
+	}
+	
 	@Override
 	public String getPassword() {
 		return password;

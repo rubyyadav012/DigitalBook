@@ -39,13 +39,22 @@ public class BookController extends BaseController {
 		return new ResponseEntity<>(createdBook,HttpStatus.CREATED);
 	}
 
-	@PutMapping("author/{authorId}/books")
-	public ResponseEntity<?> updateBook(@Valid@PathVariable("authorId") int authorId, @PathVariable("bookId") Integer bookId,
+//	@PutMapping("author/{authorId}/books")
+//	public ResponseEntity<?> updateBook(@Valid@PathVariable("authorId") int authorId, @PathVariable("bookId") Integer bookId,
+//			@RequestBody Book book) throws ResourceNotFoundException {
+//
+//		Book updatedBook = bookService.updateBook(bookId,book);
+//		
+//		return new ResponseEntity<>(updatedBook,HttpStatus.FOUND);
+//
+//	}
+	@PutMapping("book/update/{bookId}")
+	public ResponseEntity<?> updateBook(@Valid @PathVariable("bookId") Integer bookId,
 			@RequestBody Book book) throws ResourceNotFoundException {
 
 		Book updatedBook = bookService.updateBook(bookId,book);
 		
-		return new ResponseEntity<>(updatedBook,HttpStatus.FOUND);
+		return new ResponseEntity<>(updatedBook,HttpStatus.OK);
 
 	}
 

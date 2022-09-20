@@ -1,0 +1,14 @@
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  title = 'BookStore';
+  role:any =null
+  ngOnInit(): void {
+    this.role=window.sessionStorage.getItem('role');
+  }
+}

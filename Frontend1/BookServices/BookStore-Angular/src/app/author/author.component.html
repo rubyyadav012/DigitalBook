@@ -1,0 +1,66 @@
+<section class="loginnow">
+
+  <div class="login col-lg-4 m-auto shadow-lg">
+
+    <h4>Signup</h4>
+
+    <form>
+
+ 
+
+      <div class="form-group">
+
+ 
+
+        <label for="username">UserName</label>
+
+ 
+
+        <input type="text" class="form-control" [(ngModel)]="username" name="username">
+
+ 
+
+      </div>
+
+ 
+
+     
+
+ 
+
+    <div class="form-group">
+
+ 
+
+      <label for="Password1">Password</label>
+
+ 
+
+      <input type="password" class="form-control" [(ngModel)]="password" name="Password">
+      <div class="form-group">
+
+        <label for="email">Email</label>
+
+        <input type="email" class="form-control" [(ngModel)]="email" name="email" aria-describedby="emailHelp">
+
+      </div>
+
+      <label for="name">User Role</label>
+
+          <select class="form-control" [(ngModel)]="role" name="role" id="role">
+
+            <option value="0" >author</option>
+
+            <option value="1">reader</option>
+
+        </select>
+      </div>
+
+      <button (click)="RegisterClick()"[disabled]="frmRegister.invalid" class="btn btn-danger col-lg-12">Signup</button>
+
+ 
+    </form>
+
+  </div>
+
+</section>

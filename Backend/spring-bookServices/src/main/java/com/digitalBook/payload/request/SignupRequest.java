@@ -1,22 +1,16 @@
 package com.digitalBook.payload.request;
 
 import java.util.Set;
-
 import javax.validation.constraints.*;
-
 import com.digitalBook.entity.ERole;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Data
 @Setter
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
+
  
 public class SignupRequest {
     @NotBlank

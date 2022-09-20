@@ -1,6 +1,5 @@
 package com.digitalBook.controller;
 
-
 import java.util.Optional;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,13 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.digitalBook.entity.Bill;
 
 @CrossOrigin
-@RequestMapping(path="/bill")
+@RequestMapping(path = "/bill")
 public interface BillController {
 
-	
-	@PostMapping(path="/payment")
+	@PostMapping(path = "/payment")
 	ResponseEntity<?> payment(@RequestBody Bill bill);
-	
-	@GetMapping(path="/getPaymentDetail/{billId}")
-	Optional<Bill>  getById(@PathVariable int billId);
+
+	@GetMapping(path = "/getPaymentDetail/{billId}")
+	Optional<Bill> getById(@PathVariable int billId);
 }

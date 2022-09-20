@@ -1,9 +1,7 @@
 package com.digitalBook.controller;
 
-
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import javax.validation.Valid;
@@ -24,7 +22,6 @@ import com.digitalBook.repository.UserRepo;
 import com.digitalBook.repository.UserRoleRepo;
 import com.digitalBook.security.jwt.JwtUtils;
 import com.digitalBook.security.services.*;
-import com.digitalBook.entity.ERole;
 import com.digitalBook.entity.Role;
 import com.digitalBook.entity.User1;
 import com.digitalBook.entity.UserRole;
@@ -32,8 +29,6 @@ import com.digitalBook.payload.request.LoginRequest;
 import com.digitalBook.payload.request.SignupRequest;
 import com.digitalBook.payload.response.JwtResponse;
 import com.digitalBook.payload.response.MessageResponse;
-
-
 
 @CrossOrigin
 @RestController
@@ -44,7 +39,7 @@ public class AuthController {
 
 	@Autowired
 	UserRepo userRepository;
-	
+
 	@Autowired
 	UserRoleRepo userRoleRepo;
 
@@ -56,80 +51,47 @@ public class AuthController {
 
 	@Autowired
 	JwtUtils jwtUtils;
-	
 
+	@PostMapping("/login")
+	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
-		@PostMapping("/login")
-		public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+		Authentication authentication = authenticationManager.authenticate(
+				new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
-			Authentication authentication = authenticationManager.authenticate(
-					new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		String jwt = jwtUtils.generateJwtToken(authentication);
 
-			SecurityContextHolder.getContext().setAuthentication(authentication);
-			String jwt = jwtUtils.generateJwtToken(authentication);
-			
-			UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();		
-			List<String> roles = userDetails.getAuthorities().stream()
-					.map(item -> item.getAuthority())
-					.collect(Collectors.toList());
+		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+		List<String> roles = userDetails.getAuthorities().stream().map(item -> item.getAuthority())
+				.collect(Collectors.toList());
 
-			roles.add(userDetails.getRole().toString());
-			return ResponseEntity.ok(new JwtResponse(jwt, 
-													 userDetails.getId(), 
-													 userDetails.getUsername(), 
-													 userDetails.getEmail(), 
-													 
-													 roles));
+		roles.add(userDetails.getRole().toString());
+		return ResponseEntity
+				.ok(new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(),
+
+						roles));
+	}
+
+	@PostMapping("/signup")
+	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
+
+		User1 user = new User1(signUpRequest.getUsername(), signUpRequest.getEmail(),
+				encoder.encode(signUpRequest.getPassword()), signUpRequest.getRole());
+
+		UserRole userRole = new UserRole();
+
+		signUpRequest.getRoles();
+		Set<Role> roles = new HashSet<>();
+		for (Role role : roles) {
+			userRole.setRole_id(role.getId());
 		}
 
+		user.setRoles(roles);
+		System.out.println("userRole" + user.getRole());
+		userRepository.save(user);
 		
-		@PostMapping("/signup")
-		public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
-			
+		//userRole.setUser_id(user.getId());
 
-			User1 user = new User1(signUpRequest.getUsername(), 
-								 signUpRequest.getEmail(),
-								 encoder.encode(signUpRequest.getPassword()),signUpRequest.getRole());
-			
-			UserRole userRole=new UserRole();
-
-			Set<String> strRoles = signUpRequest.getRoles();
-			Set<Role> roles = new HashSet<>();
-                 for(Role role:roles) {
-                	 userRole.setRole_id(role.getId());
-                 }
-			
-				/*strRoles.forEach(role -> {
-				
-			   switch (role) {
-					
-					case "admin":
-						Role adminRole = roleRepository.findByName(ERole.ROLE_AUTHOR)
-								.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-						roles.add(adminRole);
-
-						break;
-					case "mod":
-						Role modRole = roleRepository.findByName(ERole.ROLE_USER)
-								.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-						roles.add(modRole);
-
-					break;
-					}});*/
-			
-
-			user.setRoles(roles);
-			System.out.println("userRole"+user.getRole());
-			userRepository.save(user);
-		
-			userRole.setUser_id(user.getId());
-			
-			
-			//userRoleRepo.save(userRole);
-			
-
-			return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
-		}
+		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+	}
 }
-
-

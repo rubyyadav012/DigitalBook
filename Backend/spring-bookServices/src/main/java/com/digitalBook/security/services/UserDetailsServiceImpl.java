@@ -1,4 +1,5 @@
 package com.digitalBook.security.services;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,7 +11,7 @@ import com.digitalBook.repository.UserRepo;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
-	
+
 	@Autowired
 	UserRepo userRepository;
 
@@ -20,7 +21,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		User1 user = userRepository.findByUsername(username)
 				.orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
 
-	
 		return UserDetailsImpl.build(user);
 	}
 
